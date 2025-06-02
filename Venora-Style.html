@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Venora Style</title>
+ 
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff5f9;
+    }
+    header {
+      background: linear-gradient(135deg, #ff66b2, #d63384);
+      color: white;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(214, 51, 132, 0.2);
+    }
+    nav {
+      background: #d63384;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: white;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* ======= TEAM SECTION ======= */
+    .team-section {
+      background: #fff9fb;
+      padding: 50px 20px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .team-section h2 {
+      color: #d63384;
+      margin-bottom: 40px;
+      font-size: 28px;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .team-member {
+      width: 200px;
+      transition: transform 0.3s;
+    }
+    .team-member:hover {
+      transform: translateY(-10px);
+    }
+    .team-member img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ff66b2;
+      transition: all 0.3s;
+    }
+    .team-member:hover img {
+      border-color: #d63384;
+      box-shadow: 0 8px 20px rgba(214, 51, 132, 0.2);
+    }
+    .team-member h3 {
+      color: #d63384;
+      margin: 15px 0 5px;
+    }
+    .team-member p {
+      color: #666;
+      margin: 0;
+    }
+    
+    /* ======= PRODUCT SECTION ======= */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(214, 51, 132, 0.15);
+    }
+    .card-img-container {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+    .card h3 {
+      color: #d63384;
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 15px 0;
+    }
+    .price {
+      color: #ff66b2;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 15px 0;
+      display: block;
+    }
+    .card button {
+      background: linear-gradient(to right, #ff66b2, #d63384);
+      color: white;
+      border: none;
+      padding: 12px 0;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 25px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card button:hover {
+      background: linear-gradient(to right, #d63384, #ff66b2);
+      box-shadow: 0 4px 12px rgba(214, 51, 132, 0.3);
+    }
+    .badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #ff4757;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    #cart-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 5px;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    #cart-icon {
+      position: relative;
+    }
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff4757;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+    /* Modal Keranjang */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 10px;
+      padding: 20px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .modal-header h2 {
+      color: #d63384;
+      margin: 0;
+    }
+    .close {
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-price {
+      color: #ff66b2;
+      font-weight: bold;
+    }
+    .cart-total {
+      font-weight: bold;
+      font-size: 18px;
+      text-align: right;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    .empty-cart {
+      text-align: center;
+      color: #666;
+      padding: 20px 0;
+    }
+    /* Tombol WhatsApp */
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 0;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 25px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    }
+    .checkout-btn {
+      background: linear-gradient(to right, #4CAF50, #2E7D32);
+      color: white;
+      border: none;
+      padding: 12px 0;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 25px;
+      width: 100%;
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+    }
+    .checkout-btn:hover {
+      background: linear-gradient(to right, #2E7D32, #4CAF50);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    }
+    .checkout-btn:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+    }
+    /* Modal Kontak */
+    .contact-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+    .contact-modal-content {
+      background: white;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .contact-modal h2 {
+      color: #d63384;
+    }
+    .contact-info {
+      margin: 20px 0;
+      font-size: 16px;
+      text-align: left;
+    }
+    .instagram-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .instagram-item {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .whatsapp-link {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: all 0.3s;
+    }
+    .whatsapp-link:hover {
+      background: #128C7E;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    }
+    
+    /* Section visibility */
+    .page-section {
+      display: none;
+    }
+    .page-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛍️ Venora Style</h1>
+  <p>Barang dengan perpaduan modern dan elegan</p>
+</header>
+
+<nav>
+  <a href="#" class="nav-link" data-section="home">🏠 Beranda</a>
+  <a href="#" class="nav-link" data-section="products">👗 Produk</a>
+  <a href="#" class="nav-link" data-section="contact">📞 Kontak</a>
+  <a href="#" id="cart-icon">🛒 Keranjang <span id="cart-count">0</span></a>
+</nav>
+
+<!-- Beranda -->
+<section id="home-section" class="page-section active">
+  <!-- ======= TEAM SECTION ======= -->
+  <section class="team-section">
+    <h2>✨ Tim Venora Style ✨</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="Riska-Karim.jpeg" alt="Riska Karim">
+        <h3>Riska Karim</h3>
+        <p>Founder & Desainer</p>
+      </div>
+      <div class="team-member">
+        <img src="Haikal-Kasim.jpeg" alt="Haikal Kasim">
+        <h3>Haikal Kasim</h3>
+        <p>Marketing</p>
+      </div>
+      <div class="team-member">
+        <img src="Aryanto-R-Nau.jpeg" alt="Aryanto R Nau">
+        <h3>Aryanto R Nau</h3>
+        <p>Customer Service 1</p>
+      </div>
+      <div class="team-member">
+        <img src="Fina-Ayuko.jpeg" alt="Fina Ayuko">
+        <h3>Fina Ayuko</h3>
+        <p>Social Media</p>
+      </div>
+      <div class="team-member">
+        <img src="Desriyani-Ganie.jpeg" alt="Desriyani Ganie">
+        <h3>Desriyani Ganie</h3>
+        <p>Customer Service 2</p>
+      </div>
+      <div class="team-member">
+        <img src="Sri-Agustiani-Kapang.jpeg" alt="Sryykpng">
+        <h3>Sryykpng</h3>
+        <p>Photographer</p>
+      </div>
+      <div class="team-member">
+        <img src="Zahraini-Radji.jpeg" alt="Zahraini Radji">
+        <h3>Zahraini Radji</h3>
+        <p>Designer</p>
+      </div>
+      <div class="team-member">
+        <img src="alifa-rayyan-saloewa.jpeg" alt="Alifa Rayyan Saloewa">
+        <h3>Alifa Rayyan Saloewa</h3>
+        <p>Logistics</p>
+      </div>
+      <div class="team-member">
+        <img src="Indriyani-Amir.jpeg" alt="Indriyani Amir">
+        <h3>Indriyani Amir</h3>
+        <p>Content Creator</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Produk 1: Jilbab Pasmina -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jilbab-pasmina-wanita.jpg" alt="Jilbab Pasmina Wanita">
+      </div>
+      <h3>Jilbab Pasmina Premium</h3>
+      <p>Material katun nyaman, tidak gerah dengan berbagai pilihan warna</p>
+      <span class="price">Rp 35.000</span>
+      <button class="buy-btn" data-name="Jilbab Pasmina Premium" data-price="35000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 2: Jilbab Sport -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jilbab-sport-wanita.jpg" alt="Jilbab Sport Wanita">
+        <div class="badge">TERLARIS</div>
+      </div>
+      <h3>Jilbab Sport Active</h3>
+      <p>Anti lembab, cepat kering, cocok untuk olahraga dan aktivitas</p>
+      <span class="price">Rp 30.000</span>
+      <button class="buy-btn" data-name="Jilbab Sport Active" data-price="30000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 3: Gamis Brokat -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="gamis-wanita.jpg" alt="Gamis Brokat">
+      </div>
+      <h3>Gamis Brokat Elegan</h3>
+      <p>Model trendy dengan bahan premium dan jahitan rapi</p>
+      <span class="price">Rp 250.000</span>
+      <button class="buy-btn" data-name="Gamis Brokat Elegan" data-price="250000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 4: Rok Panjang -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="rok-wanita.jpg" alt="Rok Panjang">
+      </div>
+      <h3>Rok Panjang Muslimah</h3>
+      <p>Warna hitam klasik, bahan flowy dan tidak menerawang</p>
+      <span class="price">Rp 50.000</span>
+      <button class="buy-btn" data-name="Rok Panjang Muslimah" data-price="50000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 5: Cardigan -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="cardigan-wanita.jpg" alt="Cardigan Wanita">
+        <div class="badge">BARU</div>
+      </div>
+      <h3>Cardigan Motif Kotak</h3>
+      <p>Dengan inner pasmina matching, bahan nyaman dipakai</p>
+      <span class="price">Rp 60.000</span>
+      <button class="buy-btn" data-name="Cardigan Motif Kotak" data-price="60000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 6: Tas Selempang -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="tas-selempang-wanita.jpg" alt="Tas Selempang">
+      </div>
+      <h3>Tas Selempang Wanita</h3>
+      <p>Desain minimalis, banyak kompartemen, bahan tahan lama</p>
+      <span class="price">Rp 100.000</span>
+      <button class="buy-btn" data-name="Tas Selempang Wanita" data-price="100000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 7: Hodie Wanita -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="hodie-wanita.jpg" alt="Hodie Wanita">
+      </div>
+      <h3>Hodie Wanita</h3>
+      <p>Desain minimalis, bahan tebal dan nyaman dipakai, bahan tahan lama</p>
+      <span class="price">Rp 70.000</span>
+      <button class="buy-btn" data-name="Hodie Wanita" data-price="70000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 8: Jedai Kamboja -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jedai-kamboja.jpg" alt="Jedai Kamboja">
+      </div>
+      <h3>Jedai Kamboja</h3>
+      <p>Aksesoris Rambut yang Bikin Kamu Makin Memesona!</p>
+      <span class="price">Rp 20.000</span>
+      <button class="buy-btn" data-name="Jedai Kamboja" data-price="20000">🛒 Beli Sekarang</button>
+    </div>
+  </div>
+</section>
+
+<!-- Produk -->
+<section id="products-section" class="page-section">
+  <div class="container">
+    <!-- Produk 1: Jilbab Pasmina -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jilbab-pasmina-wanita.jpg" alt="Jilbab Pasmina Wanita">
+      </div>
+      <h3>Jilbab Pasmina Premium</h3>
+      <p>Material katun nyaman, tidak gerah dengan berbagai pilihan warna</p>
+      <span class="price">Rp 35.000</span>
+      <button class="buy-btn" data-name="Jilbab Pasmina Premium" data-price="35000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 2: Jilbab Sport -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jilbab-sport-wanita.jpg" alt="Jilbab Sport Wanita">
+        <div class="badge">TERLARIS</div>
+      </div>
+      <h3>Jilbab Sport Active</h3>
+      <p>Anti lembab, cepat kering, cocok untuk olahraga dan aktivitas</p>
+      <span class="price">Rp 30.000</span>
+      <button class="buy-btn" data-name="Jilbab Sport Active" data-price="30000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 3: Gamis Brokat -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="gamis-wanita.jpg" alt="Gamis Brokat">
+      </div>
+      <h3>Gamis Brokat Elegan</h3>
+      <p>Model trendy dengan bahan premium dan jahitan rapi</p>
+      <span class="price">Rp 250.000</span>
+      <button class="buy-btn" data-name="Gamis Brokat Elegan" data-price="250000">🛒 Beli Sekarang</button>
+    </div>
+    
+    <!-- Produk 4: Rok Panjang -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="rok-wanita.jpg" alt="Rok Panjang">
+      </div>
+      <h3>Rok Panjang Muslimah</h3>
+      <p>Warna hitam klasik, bahan flowy dan tidak menerawang</p>
+      <span class="price">Rp 50.000</span>
+      <button class="buy-btn" data-name="Rok Panjang Muslimah" data-price="50000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 5: Cardigan -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="cardigan-wanita.jpg" alt="Cardigan Wanita">
+        <div class="badge">BARU</div>
+      </div>
+      <h3>Cardigan Motif Kotak</h3>
+      <p>Dengan inner pasmina matching, bahan nyaman dipakai</p>
+      <span class="price">Rp 60.000</span>
+      <button class="buy-btn" data-name="Cardigan Motif Kotak" data-price="600000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 6: Tas Selempang -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="tas-selempang-wanita.jpg" alt="Tas Selempang">
+      </div>
+      <h3>Tas Selempang Wanita</h3>
+      <p>Desain minimalis, banyak kompartemen, bahan tahan lama</p>
+      <span class="price">Rp 100.000</span>
+      <button class="buy-btn" data-name="Tas Selempang Wanita" data-price="100000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 7: Hodie Wanita -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="hodie-wanita.jpg" alt="Hodie Wanita">
+      </div>
+      <h3>Hodie Wanita</h3>
+      <p>Desain minimalis, bahan tebal dan nyaman dipakai, bahan tahan lama</p>
+      <span class="price">Rp 70.000</span>
+      <button class="buy-btn" data-name="Hodie Wanita" data-price="70000">🛒 Beli Sekarang</button>
+    </div>
+
+    <!-- Produk 8: Jedai Kamboja -->
+    <div class="card">
+      <div class="card-img-container">
+        <img src="jedai-kamboja.jpg" alt="Jedai Kamboja">
+      </div>
+      <h3>Jedai Kamboja</h3>
+      <p>Aksesoris Rambut yang Bikin Kamu Makin Memesona!</p>
+      <span class="price">Rp 20.000</span>
+      <button class="buy-btn" data-name="Jedai Kamboja" data-price="20000">🛒 Beli Sekarang</button>
+    </div>
+  </div>
+</section>
+
+<!-- Kontak -->
+<section id="contact-section" class="page-section">
+  <div class="team-section">
+    <h2>📞 Kontak Kami</h2>
+    <div class="contact-info">
+      <p><strong>WhatsApp:</strong> +62 851-4724-5536</p>
+      <p><strong>Email:</strong> venorastyle@gmail.com</p>
+      <p><strong>Alamat:</strong> Jl. Pertiwi Desa Titidu, Gorontalo Utara, Gorontalo</p>
+      
+      <h3 style="margin-top: 30px; color: #d63384;">Tim Kami di Instagram</h3>
+      <div class="instagram-list">
+        <div class="instagram-item">@fina_ayuko</div>
+        <div class="instagram-item">@dsryani_</div>
+        <div class="instagram-item">@sryykpng</div>
+        <div class="instagram-item">@zhara_ini</div>
+        <div class="instagram-item">@alifasaloewa</div>
+        <div class="instagram-item">@xndyy05</div>
+        <div class="instagram-item">@Haikal-Kasim</div>
+        <div class="instagram-item">@rkakarimm</div>
+         <div class="instagram-item">@Aryanto-R-Nau</div>
+      </div>
+    </div>
+    
+    <a href="https://wa.me/6285147245536" class="whatsapp-link" target="_blank" style="margin-top: 30px;">
+      💬 Hubungi Kami via WhatsApp
+    </a>
+  </div>
+</section>
+
+<div id="cart-notification"></div>
+
+<!-- Modal Keranjang Belanja -->
+<div id="cart-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🛒 Keranjang Belanja</h2>
+      <span class="close">&times;</span>
+    </div>
+    <div id="cart-items-container">
+      <div class="empty-cart">Keranjang belanja kosong</div>
+    </div>
+    <div class="cart-total">
+      Total: Rp <span id="cart-total">0</span>
+    </div>
+    <button id="checkout-btn" class="checkout-btn" disabled>💳 Checkout via WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  // Variabel untuk menyimpan keranjang belanja
+  let cart = [];
+  
+  // Elemen DOM
+  const cartCount = document.getElementById('cart-count');
+  const cartModal = document.getElementById('cart-modal');
+  const closeModal = document.querySelector('.close');
+  const cartItemsContainer = document.getElementById('cart-items-container');
+  const cartTotal = document.getElementById('cart-total');
+  const cartIcon = document.getElementById('cart-icon');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  
+  // Fungsi untuk menampilkan notifikasi
+  function showNotification(message) {
+    const notification = document.getElementById('cart-notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+    
+    // Sembunyikan notifikasi setelah 3 detik
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 3000);
+  }
+  
+  // Fungsi untuk menambahkan produk ke keranjang
+  function addToCart(productName, productPrice) {
+    // Tambahkan produk ke array cart
+    cart.push({
+      name: productName,
+      price: productPrice
+    });
+    
+    // Update tampilan keranjang
+    updateCartDisplay();
+    
+    // Tampilkan notifikasi
+    showNotification(`${productName} telah ditambahkan ke keranjang!`);
+  }
+  
+  // Fungsi untuk mengupdate tampilan keranjang
+  function updateCartDisplay() {
+    // Update jumlah item di icon keranjang
+    cartCount.textContent = cart.length;
+    
+    // Update daftar item di modal keranjang
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<div class="empty-cart">Keranjang belanja kosong</div>';
+      cartTotal.textContent = '0';
+    } else {
+      // Kosongkan container terlebih dahulu
+      cartItemsContainer.innerHTML = '';
+      
+      // Hitung total harga
+      let total = 0;
+      
+      // Tambahkan setiap item ke container
+      cart.forEach(item => {
+        total += item.price;
+        
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        itemElement.innerHTML = `
+          <div class="cart-item-info">${item.name}</div>
+          <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+        `;
+        cartItemsContainer.appendChild(itemElement);
+      });
+      
+      // Update total harga
+      cartTotal.textContent = total.toLocaleString('id-ID');
+    }
+    
+    // Update tombol checkout
+    updateCheckoutButton();
+  }
+  
+  // Fungsi untuk update tombol checkout
+  function updateCheckoutButton() {
+    if (cart.length > 0) {
+      checkoutBtn.disabled = false;
+    } else {
+      checkoutBtn.disabled = true;
+    }
+  }
+  
+  // Fungsi untuk checkout via WhatsApp
+  function checkout() {
+    // Format pesan untuk WhatsApp
+    let message = "Halo Venora Style, saya ingin memesan:\n\n";
+    let total = 0;
+    
+    cart.forEach(item => {
+      message += `- ${item.name} (Rp ${item.price.toLocaleString('id-ID')})\n`;
+      total += item.price;
+    });
+    
+    message += `\nTotal: Rp ${total.toLocaleString('id-ID')}\n\n`;
+    message += "Apakah produk ini tersedia? Bagaimana cara pembayarannya? Terima kasih.";
+    
+    // Encode message untuk URL
+    const encodedMessage = encodeURIComponent(message);
+    
+    // Buka WhatsApp dengan pesan
+    window.open(`https://wa.me/6285147245536?text=${encodedMessage}`, '_blank');
+    
+    // Kosongkan keranjang setelah checkout
+    cart = [];
+    updateCartDisplay();
+    cartModal.style.display = 'none';
+    showNotification('Pesanan telah dikirim via WhatsApp!');
+  }
+  
+  // Fungsi untuk mengubah halaman yang aktif
+  function showSection(sectionId) {
+    // Sembunyikan semua section
+    document.querySelectorAll('.page-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // Tampilkan section yang dipilih
+    document.getElementById(sectionId + '-section').classList.add('active');
+  }
+  
+  // Event listener untuk tombol navigasi
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const section = this.getAttribute('data-section');
+      showSection(section);
+    });
+  });
+  
+  // Event listener untuk tombol beli
+  document.querySelectorAll('.buy-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const productName = this.getAttribute('data-name');
+      const productPrice = parseInt(this.getAttribute('data-price'));
+      addToCart(productName, productPrice);
+    });
+  });
+  
+  // Event listener untuk membuka modal keranjang
+  cartIcon.addEventListener('click', function(e) {
+    e.preventDefault();
+    cartModal.style.display = 'flex';
+  });
+  
+  // Event listener untuk menutup modal keranjang
+  closeModal.addEventListener('click', function() {
+    cartModal.style.display = 'none';
+  });
+  
+  // Event listener untuk tombol checkout
+  checkoutBtn.addEventListener('click', checkout);
+  
+  // Tutup modal ketika klik di luar modal
+  window.addEventListener('click', function(event) {
+    if (event.target === cartModal) {
+      cartModal.style.display = 'none';
+    }
+  });
+  
+  // Inisialisasi tampilan keranjang
+  updateCartDisplay();
+</script>
+
+</body>
+</html>
